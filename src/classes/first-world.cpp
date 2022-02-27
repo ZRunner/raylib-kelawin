@@ -1,14 +1,13 @@
 //
-// Created by Arthur Blaise on 23/02/2022.
+// Created by Arthur on 23/02/2022.
 //
 
 #include <string>
-#include <list>
-#include <algorithm>
 #include "raylib.h"
 
 #include "first-world.h"
 #include "Block.h"
+#include "World.h"
 
 #define initial_square 8
 
@@ -21,14 +20,11 @@ void first_world() {
     camera.fovy = 40.0f;                                // Camera field-of-view Y
     camera.projection = CAMERA_PERSPECTIVE;                   // Camera mode type
 
-    std::list<Block> blocks;
-    for (int i=-initial_square; i<initial_square; i++) {
-        for (int j=-initial_square; j<initial_square; j++) {
-            blocks.emplace_back("stone", i, 0, j);
-        }
-    }
+    World world;
+    world.fill(Block("stone"), {-initial_square, 0, -initial_square}, {initial_square, 0, initial_square});
 
-    blocks.emplace_back("dirt", 0.0f, 1.0f, 0.0f);
+    Block dirt = Block("dirt");
+    world.add_block(dirt, {0, 1, 0});
 
     SetCameraMode(camera, CAMERA_FIRST_PERSON);
     SetTargetFPS(60);
@@ -54,13 +50,11 @@ void first_world() {
         ClearBackground(SKYBLUE);
         BeginMode3D(camera);
 
-        std::for_each(blocks.begin(), blocks.end(),[](const Block& block){
-                          block.draw();
-                      });
+        world.draw();
 
         DrawGrid(15, 1.0f);
 
-        DrawCube(camera.target, 0.05f, 0.05f, 0.05f, RED);
+        DrawCubeWires(camera.target, 0.1f, 0.1f, 0.1f, WHITE);
 
         EndMode3D();
 
