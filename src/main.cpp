@@ -11,14 +11,14 @@
 
 #include "raylib.h"
 
-#include "classes/first-world.h"
+#include "classes/game.h"
 
 int main()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 960;
+    const int screenHeight = 540;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d camera first person");
 
