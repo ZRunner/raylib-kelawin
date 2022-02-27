@@ -12,7 +12,6 @@
 class World {
 private:
     std::map<Vector3, Block> blocks;
-    std::map<std::string, Texture2D> textures;
     std::time_t last_save;
 
 public:

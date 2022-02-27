@@ -13,6 +13,6 @@ private:
 public:
     Block(): Block("stone") {}
     explicit Block(std::string name);
-    void draw(Texture2D texture, Vector3 position) const;
+    void draw(Vector3 position) const;
     [[nodiscard]] std::string getName() const;
 };

@@ -7,19 +7,10 @@
 
 World::World() {
     this->last_save = std::time(nullptr);
-
-    Image image = LoadImage("../assets/stone.png");
-    this->textures["stone"] = LoadTextureFromImage(image);
-    UnloadImage(image);
-
-    Image image2 = LoadImage("../assets/dirt.png");
-    this->textures["dirt"] = LoadTextureFromImage(image2);
-    UnloadImage(image2);
 }
 
 World::~World() {
     this->blocks.clear();
-    this->textures.clear();
 }
 
 void World::add_block(Block& block, Vector3 position) {
@@ -57,7 +48,7 @@ void World::draw() const {
         mit (blocks.begin()),
         mend(blocks.end());
     for(; mit!=mend; ++mit) {
-        mit->second.draw(this->textures.at(mit->second.getName()), mit->first);
+        mit->second.draw(mit->first);
     }
 }
 
