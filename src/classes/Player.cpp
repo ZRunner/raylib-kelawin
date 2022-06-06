@@ -49,6 +49,7 @@ void Player::checkCollisions(World *world) {
     BoundingBox playerBox = this->getBoundingBox();
     auto blocks = world->get_blocks({position.x-2,position.y-3,position.z-2},{position.x+2,position.y+2,position.z+2});
     for (auto &block : blocks) {
+        if (!block.second->isSolid()) continue;
         if (CheckCollisionBoxes(playerBox, block.second->getBoundingBox(block.first))) {
             Vector3 faces[6] = {
                     Vector3 {1, 0, 0} , Vector3 {-1, 0, 0},
@@ -124,6 +125,7 @@ float Player::distance_ground_block(World *world) const {
 	//je ne garantie pas la bonne gestion pour des descentes à plus de 0.8f par frame
 	auto blocks = world->get_blocks({position.x-0.7f,position.y-2.8f,position.z-0.7f},{position.x+0.7f,position.y-1.5f,position.z+0.7f});
     for (const auto &block: blocks) {
+        if (!block.second->isSolid()) continue;
         BoundingBox bb = block.second->getBoundingBox(block.first);
         if (CheckCollisionBoxes(hitbox, bb)) {
             //Distance between player's feet and compared block

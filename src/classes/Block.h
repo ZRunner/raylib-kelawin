@@ -17,6 +17,7 @@ public:
     virtual void draw(Vector3 position) const = 0;
     [[nodiscard]] virtual std::string getName() const {return _name;};
     [[nodiscard]] virtual BoundingBox getBoundingBox(Vector3 position) const;
+    [[nodiscard]] virtual bool isSolid() const {return true;};
 };
 
 class FullBlock : public Block {
@@ -37,4 +38,5 @@ class Flower : public Block {
 public:
     void draw(Vector3 position) const override;
     [[nodiscard]] BoundingBox getBoundingBox(Vector3 position) const override;
+    [[nodiscard]] bool isSolid() const override {return false;};
 };
