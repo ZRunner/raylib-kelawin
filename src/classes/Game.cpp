@@ -214,7 +214,7 @@ void Game::start() {
     float fogColor[4]; // sky + fog color
 
 //    How to add a light point
-//    CreateLight(LIGHT_POINT, (Vector3){ 0, 4, 6 }, {0, 1, 0}, BLUE, shader);
+//    CreateLight(LIGHT_POINT, (Vector3){ 0, 16, 6 }, {0, -1, 0}, RED, *TexturesManager::getFogShader());
 
 
     const std::pair<const Vector3, Block*>* selected_block = nullptr;
@@ -236,7 +236,8 @@ void Game::start() {
                 last_key_space_pressed = GetTime();
             }
             // press mouse wheel to pick a block
-            if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE) && selected_block != nullptr) {
+            selected_block = getTargetedBlock();
+            if ((IsKeyDown(KEY_P) || IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) && selected_block != nullptr) {
                 player.editSelectedItem(selected_block->second);
             }
 
@@ -311,11 +312,6 @@ void Game::start() {
         EndMode3D();
         DrawText(debugText.c_str(), 10, 10, 15, {230, 220, 220, 250});
         DrawText(getHelpText().c_str(), GetScreenWidth()-150, 10, 15, {230, 220, 220, 250});
-        if (player.getInventory()->getCurrentItem()->block != nullptr) {
-            const std::string name = player.getInventory()->getCurrentItem()->block->getName();
-            const int w = name.size() * 8;
-            DrawText(name.c_str(), (GetScreenWidth() - w) / 2, player.getInventory()->getInventoryDrawPositionY() - 30, 14, {213, 195, 195, 250});
-        }
         // Player cursor
         drawCursor();
 
