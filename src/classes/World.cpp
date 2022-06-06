@@ -86,21 +86,15 @@ std::map<Vector3, Block*> World::get_blocks(Vector3 start, Vector3 end) const {
 }
 
 void World::draw() const {
-    auto
-        mit (blocks.begin()),
-        mend(blocks.end());
-    for(; mit!=mend; ++mit) {
-        mit->second->draw(mit->first);
+    for(auto& it: blocks) {
+        it.second->draw(it.first);
     }
 }
 
 void World::draw(Player *player) const {
-    auto
-            mit (blocks.begin()),
-            mend(blocks.end());
-    for(; mit!=mend; ++mit) {
-        if (shouldBeDrawn(mit->first, player)) {
-            mit->second->draw(mit->first);
+    for(auto& it: blocks) {
+        if (shouldBeDrawn(it.first, player)) {
+           it.second->draw(it.first);
         }
     }
 }
